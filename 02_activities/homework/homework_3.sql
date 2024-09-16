@@ -2,7 +2,9 @@
 /* 1. Write a query that determines how many times each vendor has rented a booth 
 at the farmer’s market by counting the vendor booth assignments per vendor_id. */
 
-
+SELECT vendor_id, count(booth_number)
+	FROM vendor_booth_assignments as vb
+		GROUP by vendor_id
 
 /* 2. The Farmer’s Market Customer Appreciation Committee wants to give a bumper 
 sticker to everyone who has ever spent more than $2000 at the market. Write a query that generates a list 
@@ -10,7 +12,28 @@ of customers for them to give stickers to, sorted by last name, then first name.
 
 HINT: This query requires you to join two tables, use an aggregate function, and use the HAVING keyword. */
 
-
+-- sorted by last name
+SELECT  c.customer_first_name
+	, c.customer_last_name
+	, sum(cost_to_customer_per_qty*quantity) as cost
+From customer_purchases AS cp
+	INNER JOIN customer AS c
+	on cp.customer_id = c. customer_id
+	GROUP BY cp.customer_id
+		HAVING cost > 2000
+		ORDER By customer_last_name;
+		
+--sorted by first name
+SELECT cp.customer_id
+	, c.customer_first_name
+	, c.customer_last_name
+	, sum(cost_to_customer_per_qty*quantity) as cost
+FROM customer_purchases AS cp
+	INNER JOIN customer AS c
+	ON cp.customer_id = c. customer_id
+	GROUP BY cp.customer_id
+		HAVING cost > 2000
+		ORDER By customer_first_name;	
 
 --Temp Table
 /* 1. Insert the original vendor table into a temp.new_vendor and then add a 10th vendor: 
