@@ -5,12 +5,12 @@ Create a logical model for a small bookstore. 📚
 
 At the minimum it should have employee, order, sales, customer, and book entities (tables). Determine sensible column and table design based on what you know about these concepts. Keep it simple, but work out sensible relationships to keep tables reasonably sized. Include a date table. There are several tools online you can use, I'd recommend [_Draw.io_](https://www.drawio.com/) or [_LucidChart_](https://www.lucidchart.com/pages/).
 
-![assignment_ERDs_ Q1 _and_ Q2](https://github.com/user-attachments/assets/ed0e727e-29e6-4708-9ca0-b48634578fbe)
-
+![ASSIGNMENT](https://github.com/user-attachments/assets/abd87f41-80ff-4ddb-9086-3bc442088811)
 
 ## Question 2
 We want to create employee shifts, splitting up the day into morning and evening. Add this to the ERD.
-![assignment_ERDs_ Q1 _and_ Q2](https://github.com/user-attachments/assets/ed0e727e-29e6-4708-9ca0-b48634578fbe)
+
+![ASSIGNMENT](https://github.com/user-attachments/assets/abd87f41-80ff-4ddb-9086-3bc442088811)
 
 ## Question 3
 The store wants to keep customer addresses. Propose two architectures for the CUSTOMER_ADDRESS table, one that will retain changes, and another that will overwrite. Which is type 1, which is type 2?
@@ -21,6 +21,31 @@ Bonus: Are there privacy implications to this, why or why not?
 ```
 Your answer...
 ```
+The two possible designs for the Customer Address table:
+1: One in which the previous ddress of the customer is Overwriteen by the new one.
+        CUSTOMER_ADDRESS Table could be like this:
+            CustomerID (PK, FK from Customer)
+            Adress
+            City
+            PostalCode
+            Country
+2: One that keeps Changes of the addresses of the customer (history of the addresses)
+			CUSTOMER_ADDRESS Table
+			Customer_Adress_ID(PK)
+            Customer_ID (PK, FK from Customer)
+            Address
+            City
+            PostalCode
+            Country
+            Date_from (Date when the customer moved in an address)
+            Date_to   (Date when the customer moved out of an address)
+
+
+
+Privacy Implications:
+
+   In contrary to type 2, type 1 only stores the latest address, thus limiting the amount of personal data retained, hence it is privacy-friendly.
+   retaining a full address history could raise concerns about the long-term storage of sensitive information; therefore, proper data retention policies are necessary here to protect the privacy of the customer.
 
 ## Question 4
 Review the AdventureWorks Schema [here](https://i.stack.imgur.com/LMu4W.gif)
@@ -29,7 +54,15 @@ Highlight at least two differences between it and your ERD. Would you change any
 ```
 Your answer...
 ```
+Differences:
 
+    Complexity
+        The AdventureWorks schema is more complex and includes many more tables for various business functions. For example for the Sales function it contains 18 tables while in the ERD of the bookstore model I designed the Sales function contains two tables only.
+
+    Product Management
+        The bookstore model simplifies the handling of all product information (book title, genre, etc.) in a single Book table. AdventureWorks uses separate tables for such a purrpose. 
+
+If I had time I would make many changes. For example, if the bookstore sells different types of products (e.g., books, stationery, etc.), it may be beneficial to split Books into multiple tables or add a Category table similar to AdventureWorks' product management. Currently, the bookstore model uses a Sales table to track which books were sold in an order. This could be further refined  include additional product-specific details like discounts or promotions.
 # Criteria
 
 [Assignment Rubric](./assignment_rubric.md)
