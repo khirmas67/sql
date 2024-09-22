@@ -19,8 +19,6 @@ _Hint, search type 1 vs type 2 slowly changing dimensions._
 
 Bonus: Are there privacy implications to this, why or why not?
 ```
-Your answer...
-```
 The two possible designs for the Customer Address table:
 1: One in which the previous ddress of the customer is Overwriteen by the new one.
         CUSTOMER_ADDRESS Table could be like this:
@@ -42,10 +40,12 @@ The two possible designs for the Customer Address table:
 
 
 
+
 Privacy Implications:
 
    In contrary to type 2, type 1 only stores the latest address, thus limiting the amount of personal data retained, hence it is privacy-friendly.
    retaining a full address history could raise concerns about the long-term storage of sensitive information; therefore, proper data retention policies are necessary here to protect the privacy of the customer.
+
 
 ## Question 4
 Review the AdventureWorks Schema [here](https://i.stack.imgur.com/LMu4W.gif)
